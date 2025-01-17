@@ -1,8 +1,8 @@
-#####I have two dataset one is normal and another tumor dataset
+#####I have two datasets one is normal and another tumor dataset
 ###qualitiy check for normal and tumor and output statistics store in fastqc_stat foldar
 >fastqc raw_dataset/*fastq
 ###download the reference datset from NCBI
-download chromoze20 for small data size and store in reference file namde as sequence.fasta
+download chromoze20 (###for small data size and store in reference file namde as sequence.fasta)
 >cp sequence.fasta > chr20.fa
 ###align rawdatset to the human genome considering humangenome chromozome20 dataset for normal and tumor separately (command shows only for tumor dataset)
 ###from here all command run in anaylysis forldar and data also store in that foldar
