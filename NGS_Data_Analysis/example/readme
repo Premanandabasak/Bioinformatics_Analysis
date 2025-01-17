@@ -5,7 +5,7 @@
 download chromoze20 (###for small data size and store in reference file namde as sequence.fasta)
 >cp sequence.fasta > chr20.fa
 ###align rawdatset to the human genome considering humangenome chromozome20 dataset for normal and tumor separately (command shows only for tumor dataset)
-###from here all command run in anaylysis forldar and data also store in that foldar
+###from here all command run in anaylysis foldar and data also stored in that foldar
 >bwa index ../reference/chr20.fa
 ./bwa mem -M -R ../reference/chr20.fa  ../PA220KH-lib09-P19-Tumor_S2_L001_R1_001.fastq  ../PA220KH-lib09-P19-Tumor_S2_L001_R2_001.fastq > tumor_aligned_read.sam
 #Manipulation of the aligned genome using samtools:
