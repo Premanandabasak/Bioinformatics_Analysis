@@ -1,0 +1,51 @@
+Prerequisites:
+1.	fastqc (quality check):
+     Installation:
+          sudo apt update
+     sudo apt -y install fastqc
+     fastqc –help (verify installation)
+2.	BWA(Alignment)
+          Installation:
+git clone https://github.com/lh3/bwa.git
+cd bwa
+make
+./bwa
+3.	Samtools (Manipulation)
+Installation:
+sudo apt-get update
+          sudo apt-get upgrade
+     sudo apt-get install -y libncurses-dev libbz2-dev liblzma-dev
+    wget    https://github.com/samtools/samtools/releases/download/1.20/samtools-1.20.tar.bz2
+         tar xvjf samtools-1.20.tar.bz2
+         cd samtools-1.20/
+         ./configure
+         Make
+         sudo make install
+         pwd
+         export PATH="$PATH:/home/premananda/samtools-1.20"
+         sudo gedit ~/.bashrc
+        bash
+4.	samblaster:
+      Installion :conda install bioconda::samblaster 
+5.	bcftools (Variant Calling)
+  Installation: conda install bioconda::bcftools
+Basic pipeline of NGS analysis:
+
+ 
+
+#Quality check using fastqc:
+>fastqc raw_dataset.fastq
+#Download the reference dataset (fasta format) from NCBI:
+#Align the fastqc files to the reference genome using BWA
+>bwa index reference.fa
+>bwa mem -M -R reference.fa  raw_pairend1.fastq  raw_pairend2.fastq > aligned_read.sam
+#Manipulation of the aligned genome using samtools:
+>samblaster -m -I normal_aligned.sam normal_alignediread_marked.sam
+>samtools view -S -b alignediread_marked.sam > alignedread_marked.bam
+>samtools sort  alignedread_marked.bam  -o aligned_marked_sorted.bam
+# Check alignment statistics
+> samtools flagstat sample_sorted.bam
+#Variant Calling using bcftools:
+>bcftools mpileup -f reference.fa  sample.sorted.bam | bcftools call -mv -Oz -o variants.vcf.gz
+
+
