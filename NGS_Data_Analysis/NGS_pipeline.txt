@@ -22,7 +22,7 @@ sudo apt-get update
          Make
          sudo make install
          pwd
-         export PATH="$PATH:/home/premananda/samtools-1.20"
+         export PATH="$PATH:/home/dirtto/samtools-1.20"
          sudo gedit ~/.bashrc
         bash
 4.	samblaster:
