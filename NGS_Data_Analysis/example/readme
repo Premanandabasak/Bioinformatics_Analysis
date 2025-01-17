@@ -1,1 +1,19 @@
-
+#####I have two dataset one is normal and another tumor dataset
+###qualitiy check for normal and tumor and output statistics store in fastqc_stat foldar
+>fastqc raw_dataset/*fastq
+###download the reference datset from NCBI
+download chromoze20 for small data size and store in reference file namde as sequence.fasta
+>cp sequence.fasta > chr20.fa
+###align rawdatset to the human genome considering humangenome chromozome20 dataset for normal and tumor separately (command shows only for tumor dataset)
+###from here all command run in anaylysis forldar and data also store in that foldar
+>bwa index ../reference/chr20.fa
+./bwa mem -M -R ../reference/chr20.fa  ../PA220KH-lib09-P19-Tumor_S2_L001_R1_001.fastq  ../PA220KH-lib09-P19-Tumor_S2_L001_R2_001.fastq > tumor_aligned_read.sam
+#Manipulation of the aligned genome using samtools:
+>samblaster -m -I tumor_aligned.sam tumor_alignediread_marked.sam
+>samtools view -S -b tumor_alignediread_marked.sam > tumor_alignedread_marked.bam
+>samtools sort  tumor_alignedread_marked.bam  -o _tumoraligned_marked_sorted.bam
+# Check alignment statistics
+> samtools flagstat tumoraligned_marked_sorted.bam
+#Variant Calling using bcftools:
+>bcftools mpileup -f ../reference/chr20.fa  tumoraligned_marked_sorted.bam | bcftools call -mv -Oz -o tumor_calls.vcf
+#####################REPEAT ALL THE THINGS FOR normal dataset ALSO#############
