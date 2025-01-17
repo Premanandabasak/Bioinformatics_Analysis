@@ -40,7 +40,7 @@ Basic pipeline of NGS analysis:
 >bwa index reference.fa
 >bwa mem -M -R reference.fa  raw_pairend1.fastq  raw_pairend2.fastq > aligned_read.sam
 #Manipulation of the aligned genome using samtools:
->samblaster -m -I normal_aligned.sam normal_alignediread_marked.sam
+>samblaster -m -I aligned.sam alignediread_marked.sam
 >samtools view -S -b alignediread_marked.sam > alignedread_marked.bam
 >samtools sort  alignedread_marked.bam  -o aligned_marked_sorted.bam
 # Check alignment statistics
